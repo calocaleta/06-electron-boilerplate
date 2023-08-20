@@ -11,7 +11,7 @@ function createWindow() {
   });
   win.webContents.openDevTools();
   win.setMenu(null);
-  win.loadFile('index.html');
+  win.loadFile('./public/index.html');
 }
 
 app.whenReady().then(createWindow);

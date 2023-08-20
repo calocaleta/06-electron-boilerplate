@@ -2,9 +2,9 @@
   "name": "06-electron",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "electron/main.js",
   "scripts": {
-    "build:tailwind": "postcss tailwind.css -o style.css --watch",
+    "build:tailwind": "postcss ./electron/tailwind.css -o /public/styles/style.css --watch",
     "build": "webpack --mode production",
     "start": "webpack --mode production && electron .",
     "dev": "webpack serve --mode development"
