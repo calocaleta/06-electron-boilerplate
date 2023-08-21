@@ -1,73 +1,45 @@
 import React, { useState, useEffect } from 'react';
 
-function selectDirectory() {
-    window.ipcRenderer.send('create-dir', 'EJEMPLO01');
-}
-
-const makeDir = (name) => {
-    fs.mkdir(name, { recursive: true }, (error) => {
-        if (!error) {
-            console.error(error)
-        }
-    });
-}
-
-const makeFile = (name,content) => {
-    fs.writeFile(name, content, (error) => {
-        if (!error) {
-            console.error(error)
-        }
-    });
-}
-
-const createStructure = (path) => {
-    console.log('Directorio seleccionado:', path);
-
-    makeDir(`${path}/EJEMPLO01`);
-    makeDir(`${path}/EJEMPLO01/ejemplo02`);
-    makeDir(`${path}/EJEMPLO01/ejemplo03`);
-    makeFile(`${path}/EJEMPLO01/ejemplo03/ejemplo04.txt`, 'Hola mundo!');
-    makeFile(`${path}/EJEMPLO01/ejemplo02/archivo.js`, `const fs = require('fs');
-    import React from 'react'
-    
-    const makeDir = (name) => {
-        fs.mkdir(name, { recursive: true }, (error) => {
-            if (error) {
-                console.error('Ocurrió un error al crear el directorio:', error);
-            } else {
-                console.log('Directorio creado con éxito.');
-            }
-        });
-    }`);
-}
 
 
 const Instalation = () => {
-    const [installationStatus, setInstallationStatus] = useState('Not Installed');
+    const [selectedPath, setSelectedPath] = useState("");
+
+    const openDialog = () => {
+        window.ipcRenderer.send('open-file-dialog');
+    };
+
+/*     const path=''
+    makeDir(`${path}EJEMPLO01`);
+    makeDir(`${path}EJEMPLO01/ejemplo02`);
+    makeDir(`${path}EJEMPLO01/ejemplo03`);
+    makeFile(`${path}EJEMPLO01/ejemplo03/ejemplo04.txt`, 'Hola mundo!');
+    makeFile(`${path}EJEMPLO01/ejemplo02/archivo.js`, `const fs = require('fs');`); */
+
+    const createStructure = () => {
+        window.ipcRenderer.send('create-structure', selectedPath);
+    }
+
 
     useEffect(() => {
-        if (window.ipcRenderer) {
-            window.ipcRenderer.on('create-dir-response', (event, data) => {
-                if (data.success) {
-                    setInstallationStatus('Installed');
-                } else {
-                    setInstallationStatus('Failed: ' + data.error);
-                }
-            });
+        const handleDirectorySelected = (event, path) => {
+            console.log("Path recibido:", path);
+            setSelectedPath(path);
+        };
     
-        }
-        
+        window.ipcRenderer.on('selected-directory', handleDirectorySelected);
+    
         return () => {
-            // Cleanup to avoid memory leaks
-            window.ipcRenderer.removeAllListeners('create-dir-response');
+            window.ipcRenderer.removeListener('selected-directory', handleDirectorySelected);
         };
     }, []);
 
-
     return (
         <div>
-            <button onClick={selectDirectory}>Start Installation</button>
-            <div>{installationStatus}</div>
+            <button onClick={createStructure}>Crear Estructura</button>
+            <button onClick={openDialog}>Seleccionar Directorio</button>
+            <p>Directorio seleccionado: - {selectedPath} -</p>
+            Instalado!
         </div>
     )
 }
