@@ -28,6 +28,26 @@ const Instalation = () => {
             if (result && result.stdout) {
                 console.log(result.stdout);
             }
+            const result2 = await executeCommand(`npm install electron`, selectedPath);  // Pasa selectedPath como segundo argumento
+            if (result && result.stdout) {
+                console.log(result.stdout);
+            }
+            const result3 = await executeCommand(`npm install tailwindcss autoprefixer postcss-cli`, selectedPath);  // Pasa selectedPath como segundo argumento
+            if (result && result.stdout) {
+                console.log(result.stdout);
+            }
+            const result4 = await executeCommand(`npx tailwindcss init`, selectedPath);  // Pasa selectedPath como segundo argumento
+            if (result && result.stdout) {
+                console.log(result.stdout);
+            }
+            const result5 = await executeCommand(`npm install --save-dev @babel/core @babel/preset-env @babel/preset-react babel-loader webpack webpack-cli webpack-dev-server`, selectedPath);  // Pasa selectedPath como segundo argumento
+            if (result && result.stdout) {
+                console.log(result.stdout);
+            }
+            const result6 = await executeCommand(`npm install react react-dom`, selectedPath);  // Pasa selectedPath como segundo argumento
+            if (result && result.stdout) {
+                console.log(result.stdout);
+            }
         } catch (error) {
             console.error(error.error);
         }
