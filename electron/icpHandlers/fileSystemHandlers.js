@@ -3,7 +3,6 @@ const path = require('path');
 
 function createStructure(event, basePath) {
     try {
-        console.log('DEBUG01',basePath);
         makeDir(path.join(basePath, 'EJEMPLO01'));
         makeDir(path.join(basePath, 'EJEMPLO01', 'ejemplo02'));
         makeDir(path.join(basePath, 'EJEMPLO01', 'ejemplo03'));

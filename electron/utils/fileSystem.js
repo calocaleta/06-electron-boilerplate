@@ -1,25 +1,24 @@
 const fs = require('fs');
 
-const makeFile = (path, content) => {
-    fs.writeFile(path, content, (error) => {
-    if (error) {
-        console.error(error);
-    } else {
-        console.log(`Archivo ${path} creado`);
-    }
-});
-}
+const makeFile = (filePath, content, callback) => {
+    fs.writeFile(filePath, content, (error) => {
+        if (error) {
+            //callback(error);
+        } else {
+            //callback(null, `Archivo ${filePath} creado`);
+        }
+    });
+};
 
-const makeDir = (path) => {
-    console.log('DEBUG02',path);
-    fs.mkdir(path, { recursive: true }, (error) => {
-    if (error) {
-        console.error(error);
-    } else {
-        console.log(`Directorio ${path} creado`);
-    }
-});
-}
+const makeDir = (dirPath, callback) => {
+    fs.mkdir(dirPath, { recursive: true }, (error) => {
+        if (error) {
+            //callback(error);
+        } else {
+            //callback(null, `Directorio ${dirPath} creado`);
+        }
+    });
+};
 
 module.exports = {
   makeFile,
