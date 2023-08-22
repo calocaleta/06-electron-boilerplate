@@ -1,0 +1,112 @@
+ El volumen de la unidad C no tiene etiqueta.
+ El n�mero de serie del volumen es: 6004-E58C
+
+ Directorio de C:\fuentes\electron\06-electron
+
+21/08/2023  04:41 p.m.    <DIR>          .
+21/08/2023  04:41 p.m.    <DIR>          ..
+19/08/2023  09:00 p.m.                67 .babelrc
+19/08/2023  09:00 p.m.                38 .gitignore
+21/08/2023  09:53 a.m.    <DIR>          electron
+20/08/2023  12:24 a.m.           276,380 package-lock.json
+19/08/2023  11:53 p.m.               861 package.json
+19/08/2023  08:59 p.m.               110 postcss.config.js
+19/08/2023  11:49 p.m.    <DIR>          public
+21/08/2023  04:41 p.m.                 0 rutas.txt
+19/08/2023  11:57 p.m.    <DIR>          src
+19/08/2023  09:38 p.m.               185 tailwind.config.js
+20/08/2023  12:28 a.m.               443 webpack.config.js
+               8 archivos        278,084 bytes
+
+
+ Directorio de C:\fuentes\electron\06-electron\electron
+
+21/08/2023  09:53 a.m.    <DIR>          .
+21/08/2023  09:53 a.m.    <DIR>          ..
+21/08/2023  04:26 p.m.             2,046 main.js
+21/08/2023  03:30 p.m.               319 preload.js
+19/08/2023  08:59 p.m.                60 tailwind.css
+               3 archivos          2,425 bytes
+
+ Directorio de C:\fuentes\electron\06-electron\public
+
+19/08/2023  11:49 p.m.    <DIR>          .
+19/08/2023  11:49 p.m.    <DIR>          ..
+19/08/2023  11:55 p.m.    <DIR>          assets
+21/08/2023  11:35 a.m.               323 index.html
+19/08/2023  11:47 p.m.    <DIR>          styles
+               1 archivos            323 bytes
+
+ Directorio de C:\fuentes\electron\06-electron\public\assets
+
+19/08/2023  11:55 p.m.    <DIR>          .
+19/08/2023  11:55 p.m.    <DIR>          ..
+19/08/2023  11:55 p.m.    <DIR>          fonts
+19/08/2023  11:55 p.m.    <DIR>          images
+               0 archivos              0 bytes
+
+ Directorio de C:\fuentes\electron\06-electron\public\assets\fonts
+
+19/08/2023  11:55 p.m.    <DIR>          .
+19/08/2023  11:55 p.m.    <DIR>          ..
+               0 archivos              0 bytes
+
+ Directorio de C:\fuentes\electron\06-electron\public\assets\images
+
+19/08/2023  11:55 p.m.    <DIR>          .
+19/08/2023  11:55 p.m.    <DIR>          ..
+               0 archivos              0 bytes
+
+ Directorio de C:\fuentes\electron\06-electron\public\styles
+
+19/08/2023  11:47 p.m.    <DIR>          .
+19/08/2023  11:47 p.m.    <DIR>          ..
+19/08/2023  09:38 p.m.            11,899 style.css
+               1 archivos         11,899 bytes
+
+ Directorio de C:\fuentes\electron\06-electron\src
+
+19/08/2023  11:57 p.m.    <DIR>          .
+19/08/2023  11:57 p.m.    <DIR>          ..
+19/08/2023  11:55 p.m.    <DIR>          components
+19/08/2023  11:57 p.m.    <DIR>          forms
+20/08/2023  12:20 a.m.               720 index.js
+19/08/2023  11:55 p.m.    <DIR>          modules
+19/08/2023  11:56 p.m.    <DIR>          services
+20/08/2023  12:15 a.m.    <DIR>          utils
+               1 archivos            720 bytes
+
+ Directorio de C:\fuentes\electron\06-electron\src\components
+
+19/08/2023  11:55 p.m.    <DIR>          .
+19/08/2023  11:55 p.m.    <DIR>          ..
+               0 archivos              0 bytes
+
+ Directorio de C:\fuentes\electron\06-electron\src\forms
+
+19/08/2023  11:57 p.m.    <DIR>          .
+19/08/2023  11:57 p.m.    <DIR>          ..
+               0 archivos              0 bytes
+
+ Directorio de C:\fuentes\electron\06-electron\src\modules
+
+19/08/2023  11:55 p.m.    <DIR>          .
+19/08/2023  11:55 p.m.    <DIR>          ..
+               0 archivos              0 bytes
+
+ Directorio de C:\fuentes\electron\06-electron\src\services
+
+19/08/2023  11:56 p.m.    <DIR>          .
+19/08/2023  11:56 p.m.    <DIR>          ..
+               0 archivos              0 bytes
+
+ Directorio de C:\fuentes\electron\06-electron\src\utils
+
+20/08/2023  12:15 a.m.    <DIR>          .
+20/08/2023  12:15 a.m.    <DIR>          ..
+21/08/2023  04:27 p.m.             1,405 Instalation.js
+               1 archivos          1,405 bytes
+
+     Total de archivos en la lista:
+             102 archivos        445,601 bytes
+             233 dirs   7,061,282,816 bytes libres

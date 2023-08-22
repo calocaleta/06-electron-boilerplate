@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Instalation from './utils/Instalation';
 
 const App = () => {
   return (
@@ -11,6 +12,7 @@ const App = () => {
     >
     Button text
     </button>
+    <Instalation />
  </div>
  )
 };
