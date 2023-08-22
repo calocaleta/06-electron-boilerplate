@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const makeFile = (filePath, content, callback) => {
+const makeFile = (filePath, content) => {
     fs.writeFile(filePath, content, (error) => {
         if (error) {
             //callback(error);
@@ -10,7 +10,7 @@ const makeFile = (filePath, content, callback) => {
     });
 };
 
-const makeDir = (dirPath, callback) => {
+const makeDir = (dirPath) => {
     fs.mkdir(dirPath, { recursive: true }, (error) => {
         if (error) {
             //callback(error);

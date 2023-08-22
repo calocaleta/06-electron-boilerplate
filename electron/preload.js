@@ -7,6 +7,9 @@ contextBridge.exposeInMainWorld(
         },
         on: (channel, callback) => {
             ipcRenderer.on(channel, callback);
+        },
+        exec: async (command) => {
+            return ipcRenderer.invoke('run-command', command);
         }
     }
 );

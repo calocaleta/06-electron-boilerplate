@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
 
+const executeCommand = async (command) => {
+    try {
+        const result = await window.ipcRenderer.exec(command);
+        console.log(result.stdout);
+    } catch (error) {
+        console.error(error.error);
+    }
+};
 
 const Instalation = () => {
     const [selectedPath, setSelectedPath] = useState("");
@@ -20,6 +28,15 @@ const Instalation = () => {
         window.ipcRenderer.send('create-structure', selectedPath);
     }
 
+    const onClick = async () => {
+        try {
+            const result = await executeCommand('npm -v');
+            console.log(result.stdout);
+        } catch (error) {
+            console.error(error.error);
+        }
+    };
+
 
     useEffect(() => {
         const handleDirectorySelected = (event, path) => {
@@ -36,6 +53,7 @@ const Instalation = () => {
 
     return (
         <div>
+            <button onClick={onClick}>Ejecuta comando</button>
             <button onClick={createStructure}>Crear Estructura</button>
             <button onClick={openDialog}>Seleccionar Directorio</button>
             <p>Directorio seleccionado: - {selectedPath} -</p>

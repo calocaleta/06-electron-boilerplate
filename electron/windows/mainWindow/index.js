@@ -8,7 +8,7 @@ function createMainWindow() {
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      preload: path.join(__dirname, '../../preload/index.js')
+      preload: path.join(__dirname, '../../preload.js')
     }
   });
   win.webContents.openDevTools();
