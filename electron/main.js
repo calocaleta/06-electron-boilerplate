@@ -1,23 +1,8 @@
-const { app, BrowserWindow, ipcMain, dialog } = require('electron');
-const fs = require('fs');
-const path = require('path');
+const { app} = require('electron');
+const createMainWindow = require('./windows/mainWindow');
+const registerIpcHandlers = require('./icpHandlers');
 
-function createWindow() {
-  const win = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      nodeIntegration: false, // Establece esto a 'false'
-      contextIsolation: true,
-      preload: path.join(__dirname, 'preload.js')
-    }
-  });
-  win.webContents.openDevTools();
-  win.setMenu(null);
-  win.loadFile('./public/index.html');
-}
-
-app.whenReady().then(createWindow);
+app.whenReady().then(createMainWindow);
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
@@ -25,27 +10,10 @@ app.on('window-all-closed', () => {
   }
 });
 
-const makeFile = (path, content) => {
-  fs.writeFile(path, content, (error) => {
-      if (error) {
-        console.error(error);
-      } else {
-        console.log(`Archivo ${path} creado`);
-      }
-  });
-}
+registerIpcHandlers();
 
-const makeDir = (path) => {
-  fs.mkdir(path, { recursive: true }, (error) => {
-      if (error) {
-        console.error(error);
-      } else {
-        console.log(`Directorio ${path} creado`);
-      }
-  });
-}
 
-ipcMain.on('create-structure', (event, basePath) => {
+/* ipcMain.on('create-structure', (event, basePath) => {
   try {
     makeDir(`${basePath}/EJEMPLO01`);
     makeDir(`${basePath}/EJEMPLO01/ejemplo02`);
@@ -72,4 +40,4 @@ ipcMain.on('open-file-dialog', (event) => {
   }).catch(err => {
       console.log(err);
   });
-});
+}); */
