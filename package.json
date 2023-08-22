@@ -1,7 +1,6 @@
 {
   "name": "06-electron",
   "version": "1.0.0",
-  "description": "",
   "main": "electron/main.js",
   "scripts": {
     "build:tailwind": "postcss ./src/tailwind.custom.css -o /public/styles/style.css --watch",
@@ -28,5 +27,6 @@
     "webpack": "^5.88.2",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1"
-  }
+  },
+  "description": ""
 }

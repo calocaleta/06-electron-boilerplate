@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
 
-const executeCommand = async (command) => {
+const executeCommand = async (command, path) => {
     try {
-        const result = await window.ipcRenderer.exec(command);
+        const result = await window.ipcRenderer.exec(command, path);  // Pasar path como segundo argumento
         console.log(result.stdout);
+        return result;
     } catch (error) {
         console.error(error.error);
     }
@@ -17,21 +18,16 @@ const Instalation = () => {
         window.ipcRenderer.send('open-file-dialog');
     };
 
-/*     const path=''
-    makeDir(`${path}EJEMPLO01`);
-    makeDir(`${path}EJEMPLO01/ejemplo02`);
-    makeDir(`${path}EJEMPLO01/ejemplo03`);
-    makeFile(`${path}EJEMPLO01/ejemplo03/ejemplo04.txt`, 'Hola mundo!');
-    makeFile(`${path}EJEMPLO01/ejemplo02/archivo.js`, `const fs = require('fs');`); */
-
     const createStructure = () => {
-        window.ipcRenderer.send('create-structure', selectedPath);
+        window.ipcRenderer.send('create-structure');
     }
 
     const onClick = async () => {
         try {
-            const result = await executeCommand('npm -v');
-            console.log(result.stdout);
+            const result = await executeCommand(`npm init -y`, selectedPath);  // Pasa selectedPath como segundo argumento
+            if (result && result.stdout) {
+                console.log(result.stdout);
+            }
         } catch (error) {
             console.error(error.error);
         }
