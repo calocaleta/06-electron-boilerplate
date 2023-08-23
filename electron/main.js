@@ -12,11 +12,11 @@ app.on('window-all-closed', () => {
 
 registerIpcHandlers();
 
-// Añade el siguiente manejador
+
 ipcMain.handle('run-command', async (event, command, path) => {
   return new Promise((resolve, reject) => {
     const { exec } = require('child_process');
-    const options = path ? { cwd: path } : undefined;  // Si se proporciona un path, se setea la propiedad cwd (Current Working Directory).
+    const options = path ? { cwd: path } : undefined;
 
     exec(command, options, (error, stdout, stderr) => {
         if (error) {

@@ -9,7 +9,7 @@ contextBridge.exposeInMainWorld(
             ipcRenderer.on(channel, callback);
         },
         exec: async (command, path) => {
-            return ipcRenderer.invoke('run-command', command, path);  // Pasar path como segundo argumento
+            return ipcRenderer.invoke('run-command', command, path);
         }
     }
 );
