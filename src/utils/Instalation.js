@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { executeCommand } from '../handlers';
-
+import { executeCommand, executeCommands } from '../handlers';
 
 const Instalation = () => {
     const [selectedPath, setSelectedPath] = useState("");
@@ -10,7 +9,13 @@ const Instalation = () => {
     };
 
     const createStructure = () => {
-        window.ipcRenderer.send('create-structure');
+        window.ipcRenderer.send('make-dir', { newPath: 'EJEMPLO01', currentPath: selectedPath});
+        window.ipcRenderer.send('make-dir', { newPath: 'EJEMPLO02', currentPath: selectedPath});
+        window.ipcRenderer.send('make-dir', { newPath: 'EJEMPLO01/ejemplo03', currentPath: selectedPath});
+        window.ipcRenderer.send('make-dir', { newPath: 'EJEMPLO01/ejemplo02', currentPath: selectedPath});
+        window.ipcRenderer.send('make-file', { newFile: 'EJEMPLO01/ejemplo02/ejemplo04.txt', content: 'Hola mundo!',currentPath: selectedPath});
+        window.ipcRenderer.send('make-file', { newFile: 'EJEMPLO01/ejemplo03/archivo.js', content: `const fs = require('fs');
+        //ejemplo`,currentPath: selectedPath});
     }
 
     const onClick = async () => {
