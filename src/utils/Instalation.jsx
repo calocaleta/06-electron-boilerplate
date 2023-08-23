@@ -48,7 +48,10 @@ const Instalation = () => {
 
     return (
         <div>
-            <button onClick={onClick}>Ejecuta comando</button>
+            <button
+                onClick={onClick}>
+                    Ejecuta comando!
+            </button>
             <button onClick={createStructure}>Crear Estructura</button>
             <button onClick={openDialog}>Seleccionar Directorio</button>
             <p>Directorio seleccionado: - {selectedPath} -</p>

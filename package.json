@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "electron/main.js",
   "scripts": {
-    "build:tailwind": "postcss ./src/tailwind.custom.css -o /public/styles/style.css --watch",
+    "build:tailwind": "postcss ./src/tailwind.custom.css -o ./public/styles/style.css --watch",
     "build": "webpack --mode production",
     "start": "webpack --mode production && electron .",
     "dev": "webpack serve --mode development"
