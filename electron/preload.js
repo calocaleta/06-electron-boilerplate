@@ -8,8 +8,11 @@ contextBridge.exposeInMainWorld(
         on: (channel, callback) => {
             ipcRenderer.on(channel, callback);
         },
+        invoke: (channel, data) => {
+          return ipcRenderer.invoke(channel, data);
+        },
         exec: async (command, path) => {
-            return ipcRenderer.invoke('run-command', command, path);  // Pasar path como segundo argumento
+            return ipcRenderer.invoke('run-command', command, path);
         }
     }
 );

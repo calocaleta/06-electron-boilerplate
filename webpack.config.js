@@ -19,6 +19,11 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.jsx'],
+    alias: {
+      '@utils': path.resolve(__dirname, './electron/utils/'),
+      '@electron': path.resolve(__dirname, './electron/'),
+      '@public': path.resolve(__dirname, './public/'),
+    },
   },
   target: 'electron-renderer',
 };
