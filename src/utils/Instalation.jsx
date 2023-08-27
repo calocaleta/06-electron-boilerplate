@@ -76,8 +76,155 @@ function registerIpcHandlers() {
 }
 
 module.exports = registerIpcHandlers;`,selectedPath);
+makeFile('electron/icpHandlers/handlerCommand.js', `async function runCommand (event, command, path) {
+    return new Promise((resolve, reject) => {
+      const { exec } = require('child_process');
+      const options = path ? { cwd: path } : undefined;
+  
+      exec(command, options, (error, stdout, stderr) => {
+          if (error) {
+              reject({error: error.message, stdout: null, stderr: stderr});
+          } else {
+              resolve({error: null, stdout: stdout, stderr: stderr});
+          }
+        });
+    });
+};
+
+module.exports = {
+    runCommand
+};`,selectedPath);
+makeFile('electron/icpHandlers/handlerDialog.js', `const { openFileDialog } = require('../utils/dialog');
+
+function openDialog(event) {
+    openFileDialog((error, filePath) => {
+        if (error) {
+            console.error(error);
+        } else {
+            console.log("Dialog Result:", filePath);
+            event.sender.send('selected-directory', filePath);
+        }
+    });
+}
+
+module.exports = {
+  openDialog
+};`,selectedPath);
+makeFile('electron/icpHandlers/handlerFileSystem.js', `const fs = require('fs');
+const path = require('path');
+
+const makeFile = (event, {currentPath, newFile, content}) => {
+    fs.writeFile(path.join(currentPath, newFile), content, (error) => {
+        if (error) {
+            event.sender.send('create-file-response', { success: false, error: error.message });
+        } else {
+            event.sender.send('create-file-response', { success: true });
+        }
+    });
+};
+
+const readFile = (event, {currentPath, file}) => {
+    fs.readFile(path.join(currentPath, file), 'utf8', (error, data) => {
+        if (error) {
+            event.sender.send('read-file-response', { success: false, error: error.message });
+        } else {
+            event.sender.send('read-file-response', { success: true, data });
+        }
+    });
+};
+
+const makeDir = (event, {currentPath, newPath}) => {
+    fs.mkdir(path.join(currentPath, newPath), { recursive: true }, (error) => {
+        if (error) {
+            event.sender.send('create-dir-response', { success: false, error: error.message });
+        } else {
+            event.sender.send('create-dir-response', { success: true });
+        }
+    });
+};
+
+module.exports = {
+  makeFile,
+  makeDir,
+};`,selectedPath);
 
         makeDir('electron/utils',selectedPath);
+makeFile('electron/utils/index.js', `export * from './command';
+export * from './filesystem';
+export * from './dialog';`,selectedPath);
+makeFile('electron/utils/command.js', `export const executeCommand = async (command, path) => {
+    try {
+        const result = await window.ipcRenderer.exec(command, path);
+        console.log(result.stdout);
+        return result;
+    } catch (error) {
+        console.error(error.error);
+        throw error;
+    }
+};
+
+export const executeCommands = async (commands, path) => {
+    for (const command of commands) {
+        try {
+            await executeCommand(command, path);
+        } catch (error) {
+            console.error(error.error);
+        }
+    }
+};`,selectedPath);
+makeFile('electron/utils/dialog.js', `const { dialog } = require('electron');
+
+const openFileDialog = (callback) => {
+    dialog.showOpenDialog({
+        properties: ['openDirectory']
+    }).then(result => {
+        if (!result.canceled) {
+            callback(null, result.filePaths[0]);
+        } else {
+            callback('Dialog cancelled by user.');
+        }
+    }).catch(err => {
+        callback(err);
+    });
+};
+
+module.exports = {
+  openFileDialog
+};`,selectedPath);
+makeFile('electron/utils/filesystem.js', `export const makeFile = async (newFile, content, currentPath) => {
+    try {
+        const result = await window.ipcRenderer.send('make-file', { newFile: newFile, content: content,currentPath: currentPath});
+        console.log(result);
+        return result;
+    } catch (error) {
+        console.error(error.error);
+        throw error;
+    }
+};
+
+export const readFile = async (file, currentPath) => {
+    try {
+        const result = await window.ipcRenderer.send('read-file', { file: file, currentPath: currentPath});
+        console.log(result);
+        return result;
+    } catch (error) {
+        console.error(error.error);
+        throw error;
+    }
+};
+
+export const makeDir = async (newPath, currentPath) => {
+    try {
+        const result = await window.ipcRenderer.send('make-dir', { newPath: newPath, currentPath: currentPath});
+        console.log(result);
+        return result;
+    } catch (error) {
+        console.error(error.error);
+        throw error;
+    }
+
+};`,selectedPath);
+
         makeDir('electron/windows',selectedPath);
         makeDir('electron/windows/mainWindow',selectedPath);
         makeFile('electron/windows/mainWindow/index.js', `const { BrowserWindow } = require('electron');
@@ -118,12 +265,11 @@ module.exports = createMainWindow;`,selectedPath);
         makeDir('src',selectedPath);
         makeFile('src/index.js', `import React from 'react';
 import ReactDOM from 'react-dom';
-import Instalation from './utils/Instalation';
 
 const App = () => {
     return (
     <div className="bg-slate-600">
-    <Instalation />
+    <h1>APP ELECTRON!</h1>
     </div>
     )
 };

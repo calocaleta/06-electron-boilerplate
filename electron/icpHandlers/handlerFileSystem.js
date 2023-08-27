@@ -11,6 +11,16 @@ const makeFile = (event, {currentPath, newFile, content}) => {
     });
 };
 
+const readFile = (event, {currentPath, file}) => {
+    fs.readFile(path.join(currentPath, file), 'utf8', (error, data) => {
+        if (error) {
+            event.sender.send('read-file-response', { success: false, error: error.message });
+        } else {
+            event.sender.send('read-file-response', { success: true, data });
+        }
+    });
+};
+
 const makeDir = (event, {currentPath, newPath}) => {
     fs.mkdir(path.join(currentPath, newPath), { recursive: true }, (error) => {
         if (error) {
@@ -24,4 +34,5 @@ const makeDir = (event, {currentPath, newPath}) => {
 module.exports = {
   makeFile,
   makeDir,
+  readFile,
 };
