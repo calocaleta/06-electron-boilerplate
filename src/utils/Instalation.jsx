@@ -1,24 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { executeCommand, executeCommands } from '@utils';
-import { makeFile, makeDir } from '@utils';
+import { makeFile, readFile, makeDir } from '@utils';
 
 
 const Instalation = () => {
     const [selectedPath, setSelectedPath] = useState("");
-
-    
-    const createStructure = () => {
-        
-        makeDir('EJEMPLO01',selectedPath);
-        makeDir('EJEMPLO02',selectedPath);
-        makeDir('EJEMPLO01/ejemplo03',selectedPath);
-        makeDir('EJEMPLO01/ejemplo02',selectedPath);
-        
-        makeFile('EJEMPLO01/ejemplo02/ejemplo04.txt', 'Hola mundo!',selectedPath);
-        makeFile('EJEMPLO01/ejemplo03/archivo.js', `const fs = require('fs');
-        //ejemplo`,selectedPath);
-    }
-    
+  
     const onClick = async () => {
         const commands = [
             'npm init -y',
@@ -350,6 +337,11 @@ target: 'electron-renderer',
         };
     }, []);
 
+    const LeeArchivo = async () => {
+        const result = await readFile('package.json', selectedPath);
+        console.log(result);
+    };
+
     return (
         <div>
             <button
@@ -365,11 +357,11 @@ target: 'electron-renderer',
                 onClick={onClick}>
                     Ejecuta comando!
             </button>
-            
+
             <button
                 className="bg-blue-500 border border-blue-700 text-white rounded px-4 py-2 focus:outline-none active:bg-blue-700 active:border-blue-900" 
-                onClick={createStructure}>
-                    Crear Estructura
+                onClick={LeeArchivo}>
+                    Lee archivo!
             </button>
             
         </div>

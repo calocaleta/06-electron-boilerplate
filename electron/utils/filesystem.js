@@ -11,8 +11,7 @@ export const makeFile = async (newFile, content, currentPath) => {
 
 export const readFile = async (file, currentPath) => {
     try {
-        const result = await window.ipcRenderer.send('read-file', { file: file, currentPath: currentPath});
-        console.log(result);
+        const result = await window.ipcRenderer.invoke('read-file', { file: file, currentPath: currentPath });
         return result;
     } catch (error) {
         console.error(error.error);

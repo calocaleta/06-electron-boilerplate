@@ -11,13 +11,15 @@ const makeFile = (event, {currentPath, newFile, content}) => {
     });
 };
 
-const readFile = (event, {currentPath, file}) => {
-    fs.readFile(path.join(currentPath, file), 'utf8', (error, data) => {
-        if (error) {
-            event.sender.send('read-file-response', { success: false, error: error.message });
-        } else {
-            event.sender.send('read-file-response', { success: true, data });
-        }
+const readFile = async (event, {currentPath, file}) => {
+    return new Promise((resolve, reject) => {
+        fs.readFile(path.join(currentPath, file), 'utf8', (error, data) => {
+            if (error) {
+                reject({ success: false, error: error.message });
+            } else {
+                resolve({ success: true, data });
+            }
+        });
     });
 };
 

@@ -5,6 +5,7 @@ const handlerCommand = require('./handlerCommand');
 
 function registerIpcHandlers() {
   ipcMain.on('make-file', handlerFileSystem.makeFile);
+  ipcMain.handle('read-file', handlerFileSystem.readFile);
   ipcMain.on('make-dir', handlerFileSystem.makeDir);
   ipcMain.on('open-file-dialog', handlerDialog.openDialog);
   ipcMain.handle('run-command', handlerCommand.runCommand);
