@@ -13,8 +13,7 @@ const Instalation = () => {
             'npm install tailwindcss autoprefixer postcss-cli',
             'npx tailwindcss init',
             'npm install --save-dev @babel/core @babel/preset-env @babel/preset-react babel-loader webpack webpack-cli webpack-dev-server',
-            'npm install react react-dom',
-            'code .'
+            'npm install react react-dom'
         ];
         await executeCommands(commands, selectedPath);
 
@@ -317,7 +316,20 @@ resolve: {
 },
 target: 'electron-renderer',
 };`,selectedPath);
+
+
+let result = await readFile('package.json', selectedPath);
         
+result = result.data.replace(/"test": "echo \\"Error: no test specified\\" && exit 1"/g, `"build:tailwind": "postcss ./src/tailwind.custom.css -o ./public/styles/style.css --watch",
+"build:tailwind-once": "postcss ./src/tailwind.custom.css -o ./public/styles/style.css",
+"build": "webpack --mode production",
+"start": "webpack --mode production && electron .",
+"dev": "webpack serve --mode development"`);
+result = result.replace(/"main": "index.js"/g, '"main": "electron/main.js"');
+makeFile('package.json', result, selectedPath);
+await executeCommand('npm run build:tailwind-once', selectedPath);
+await executeCommand('code .', selectedPath);
+
     };
     
     const openDialog = () => {
@@ -337,11 +349,6 @@ target: 'electron-renderer',
         };
     }, []);
 
-    const LeeArchivo = async () => {
-        const result = await readFile('package.json', selectedPath);
-        console.log(result);
-    };
-
     return (
         <div>
             <button
@@ -356,12 +363,6 @@ target: 'electron-renderer',
                 className="bg-blue-500 border border-blue-700 text-white rounded px-4 py-2 focus:outline-none active:bg-blue-700 active:border-blue-900" 
                 onClick={onClick}>
                     Ejecuta comando!
-            </button>
-
-            <button
-                className="bg-blue-500 border border-blue-700 text-white rounded px-4 py-2 focus:outline-none active:bg-blue-700 active:border-blue-900" 
-                onClick={LeeArchivo}>
-                    Lee archivo!
             </button>
             
         </div>
