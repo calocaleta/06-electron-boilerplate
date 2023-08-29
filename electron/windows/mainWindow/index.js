@@ -4,8 +4,8 @@ const path = require('path');
 function createMainWindow() {
   const win = new BrowserWindow({
     width: 800,
-    width: 800,
-    height: 595,
+    height: 620,
+    show: false,
     icon: path.join(__dirname, 'icon.png'),
     resizable: false,
     webPreferences: {
@@ -14,6 +14,11 @@ function createMainWindow() {
       preload: path.join(__dirname, '../../preload.js')
     }
   });
+
+  win.once('ready-to-show', () => {
+    win.show();
+  });
+
   //win.webContents.openDevTools();
   win.setMenu(null);
   win.loadFile('./public/index.html');
